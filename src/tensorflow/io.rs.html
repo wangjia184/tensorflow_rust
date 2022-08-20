@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;io.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>io.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;io.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>io.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -482,7 +483,7 @@
     <span class="ident">io</span>::{<span class="ident">Read</span>, <span class="ident">Seek</span>, <span class="ident">SeekFrom</span>, <span class="ident">Write</span>},
 };
 
-<span class="kw">fn</span> <span class="ident">mask_crc</span>(<span class="ident">crc</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+<span class="kw">fn</span> <span class="ident">mask_crc</span>(<span class="ident">crc</span>: <span class="ident">u32</span>) -&gt; <span class="ident">u32</span> {
     ((<span class="ident">crc</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">15</span>) <span class="op">|</span> (<span class="ident">crc</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">17</span>)).<span class="ident">wrapping_add</span>(<span class="number">0xa282_ead8u32</span>)
 }
 
@@ -499,12 +500,12 @@
     <span class="ident">W</span>: <span class="ident">Write</span>,
 {
     <span class="doccomment">/// Construct a new RecordWriter which writes to `writer`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">writer</span>: <span class="ident">W</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">writer</span>: <span class="ident">W</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">RecordWriter</span> { <span class="ident">writer</span> }
     }
 
     <span class="doccomment">/// Write a complete TFRecord.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_record</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_record</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">io::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="comment">/* A TFRecords file contains a sequence of strings
         with CRC32C (32-bit CRC using the Castagnoli polynomial) hashes. Each record has the format
 
@@ -519,15 +520,15 @@
         [1] https://en.wikipedia.org/wiki/Cyclic_redundancy_check
         */</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len_bytes</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">8</span>];
-        (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">len_bytes</span>[..]).<span class="ident">write_u64</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>(<span class="ident">bytes</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>)<span class="question-mark">?</span>;
+        (<span class="kw-2">&amp;mut</span> <span class="ident">len_bytes</span>[..]).<span class="ident">write_u64</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>(<span class="ident">bytes</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">masked_len_crc32c</span> <span class="op">=</span> <span class="ident">mask_crc</span>(<span class="ident">CASTAGNOLI</span>.<span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="ident">len_bytes</span>));
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len_crc32_bytes</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">4</span>];
-        (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">len_crc32_bytes</span>[..]).<span class="ident">write_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>(<span class="ident">masked_len_crc32c</span>)<span class="question-mark">?</span>;
+        (<span class="kw-2">&amp;mut</span> <span class="ident">len_crc32_bytes</span>[..]).<span class="ident">write_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>(<span class="ident">masked_len_crc32c</span>)<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="ident">masked_bytes_crc32c</span> <span class="op">=</span> <span class="ident">mask_crc</span>(<span class="ident">CASTAGNOLI</span>.<span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="ident">bytes</span>));
+        <span class="kw">let</span> <span class="ident">masked_bytes_crc32c</span> <span class="op">=</span> <span class="ident">mask_crc</span>(<span class="ident">CASTAGNOLI</span>.<span class="ident">checksum</span>(<span class="ident">bytes</span>));
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_crc32_bytes</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">4</span>];
-        (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes_crc32_bytes</span>[..]).<span class="ident">write_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>(<span class="ident">masked_bytes_crc32c</span>)<span class="question-mark">?</span>;
+        (<span class="kw-2">&amp;mut</span> <span class="ident">bytes_crc32_bytes</span>[..]).<span class="ident">write_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>(<span class="ident">masked_bytes_crc32c</span>)<span class="question-mark">?</span>;
 
         <span class="self">self</span>.<span class="ident">writer</span>.<span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="ident">len_bytes</span>)<span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">writer</span>.<span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="ident">len_crc32_bytes</span>)<span class="question-mark">?</span>;
@@ -562,22 +563,22 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">io::Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RecordReadError</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">from</span>: <span class="ident">io::Error</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RecordReadError</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">from</span>: <span class="ident">io::Error</span>) -&gt; <span class="ident">RecordReadError</span> {
         <span class="ident">RecordReadError::IoError</span> { <span class="ident">source</span>: <span class="ident">from</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">RecordReadError</span> {
-    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(<span class="kw">dyn</span> <span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">RecordReadError::IoError</span> { <span class="ident">source</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident">RecordReadError::IoError</span> { <span class="ident">source</span> } =&gt; <span class="prelude-val">Some</span>(<span class="ident">source</span>),
+            <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">RecordReadError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{:?}&quot;</span>, <span class="self">self</span>)
     }
 }
@@ -593,39 +594,39 @@
     <span class="ident">R</span>: <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Seek</span>,
 {
     <span class="doccomment">/// Construct a new RecordReader from an underlying Read.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">reader</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">reader</span>: <span class="ident">R</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">RecordReader</span> { <span class="ident">reader</span> }
     }
 
-    <span class="kw">fn</span> <span class="ident">read_next_len_unchecked</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">read_next_len_unchecked</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">read_u64</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>() {
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">kind</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">io::ErrorKind::UnexpectedEof</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; {
+                <span class="kw">if</span> <span class="ident">e</span>.<span class="ident">kind</span>() <span class="op">==</span> <span class="ident">io::ErrorKind::UnexpectedEof</span> {
                     <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
                 } <span class="kw">else</span> {
                     <span class="prelude-val">Err</span>(<span class="ident">e</span>.<span class="ident">into</span>())
                 }
             }
-            <span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">val</span>)),
+            <span class="prelude-val">Ok</span>(<span class="ident">val</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">val</span>)),
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">actual_bytes_crc32</span> <span class="op">=</span> <span class="ident">mask_crc</span>(<span class="ident">CASTAGNOLI</span>.<span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="ident">bytes</span>));
+    <span class="kw">fn</span> <span class="ident">checksum</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">bytes</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">actual_bytes_crc32</span> <span class="op">=</span> <span class="ident">mask_crc</span>(<span class="ident">CASTAGNOLI</span>.<span class="ident">checksum</span>(<span class="ident">bytes</span>));
         <span class="kw">let</span> <span class="ident">expected_bytes_crc32</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">read_u32</span>::<span class="op">&lt;</span><span class="ident">LittleEndian</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="ident">actual_bytes_crc32</span> <span class="op">!</span><span class="op">=</span> <span class="ident">expected_bytes_crc32</span> {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
         }
         <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>)
     }
-    <span class="kw">fn</span> <span class="ident">read_bytes_exact_unchecked</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">read_bytes_exact_unchecked</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">read_exact</span>(<span class="ident">buf</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="doccomment">/// The length of the next record. Does not checksum the length.</span>
     <span class="doccomment">/// Use this to find out how large the byte slice needs to be to read the next record.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_next_len</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_next_len</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">read_next_len_unchecked</span>()<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="ident">len</span>.<span class="ident">is_some</span>() {
             <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">seek</span>(<span class="ident">SeekFrom::Current</span>(<span class="op">-</span><span class="number">8</span>))<span class="question-mark">?</span>;
@@ -698,10 +699,10 @@
     <span class="doccomment">/// assert_eq!(vec.len(), 4);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">read_next_len_unchecked</span>()<span class="question-mark">?</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">len</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">len</span>,
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">len</span>) =&gt; <span class="ident">len</span>,
+            <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
         };
         <span class="kw">if</span> (<span class="ident">buf</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u64</span>) <span class="op">&lt;</span> <span class="ident">len</span> {
             <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">seek</span>(<span class="ident">SeekFrom::Current</span>(<span class="number">8</span> <span class="op">+</span> <span class="ident">len</span> <span class="kw">as</span> <span class="ident">i64</span>))<span class="question-mark">?</span>;
@@ -709,12 +710,12 @@
         }
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len_bytes</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">8</span>];
-        <span class="ident">LittleEndian::write_u64</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">len_bytes</span>, <span class="ident">len</span>);
+        <span class="ident">LittleEndian::write_u64</span>(<span class="kw-2">&amp;mut</span> <span class="ident">len_bytes</span>, <span class="ident">len</span>);
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="ident">len_bytes</span>)<span class="question-mark">?</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RecordReadError::CorruptFile</span>);
         }
 
-        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[<span class="number">0</span>..<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>];
+        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">buf</span>[<span class="number">0</span>..<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>];
         <span class="self">self</span>.<span class="ident">read_bytes_exact_unchecked</span>(<span class="ident">slice</span>)<span class="question-mark">?</span>;
 
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">checksum</span>(<span class="ident">slice</span>)<span class="question-mark">?</span> {
@@ -757,18 +758,18 @@
     <span class="doccomment">///     i += 1;</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_next_owned</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_next_owned</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">read_next_len_unchecked</span>()<span class="question-mark">?</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">len</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">len</span>,
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">len</span>) =&gt; <span class="ident">len</span>,
+            <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
         };
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">len_bytes</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">8</span>];
-        <span class="ident">LittleEndian::write_u64</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">len_bytes</span>, <span class="ident">len</span>);
+        <span class="ident">LittleEndian::write_u64</span>(<span class="kw-2">&amp;mut</span> <span class="ident">len_bytes</span>, <span class="ident">len</span>);
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="ident">len_bytes</span>)<span class="question-mark">?</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RecordReadError::CorruptFile</span>);
         }
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vec</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>];
-        <span class="self">self</span>.<span class="ident">read_bytes_exact_unchecked</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">vec</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">read_bytes_exact_unchecked</span>(<span class="kw-2">&amp;mut</span> <span class="ident">vec</span>)<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">checksum</span>(<span class="kw-2">&amp;</span><span class="ident">vec</span>)<span class="question-mark">?</span> {
             <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">vec</span>))
         } <span class="kw">else</span> {
@@ -807,7 +808,7 @@
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// let _ = std::fs::remove_file(path);</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_iter_owned</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_iter_owned</span>(<span class="self">self</span>) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="ident">RecordOwnedIterator</span> { <span class="ident">records</span>: <span class="self">self</span> }
     }
 }
@@ -818,10 +819,10 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Read</span> <span class="op">+</span> <span class="ident">Seek</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">RecordOwnedIterator</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">RecordReadError</span><span class="op">&gt;</span>;
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">records</span>.<span class="ident">read_next_owned</span>().<span class="ident">transpose</span>() {
-            <span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">RecordReadError::CorruptFile</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-            <span class="ident">rest</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">rest</span>,
+            <span class="prelude-val">Some</span>(<span class="prelude-val">Err</span>(<span class="ident">RecordReadError::CorruptFile</span>)) =&gt; <span class="prelude-val">None</span>,
+            <span class="ident">rest</span> =&gt; <span class="ident">rest</span>,
         }
     }
 }
@@ -856,8 +857,8 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ef</span> <span class="op">=</span> <span class="ident">File::open</span>(<span class="ident">expected_filename</span>).<span class="ident">unwrap</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">actual</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">0</span>];
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">expected</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">0</span>];
-            <span class="ident">af</span>.<span class="ident">read_to_end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">actual</span>).<span class="ident">unwrap</span>();
-            <span class="ident">ef</span>.<span class="ident">read_to_end</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">expected</span>).<span class="ident">unwrap</span>();
+            <span class="ident">af</span>.<span class="ident">read_to_end</span>(<span class="kw-2">&amp;mut</span> <span class="ident">actual</span>).<span class="ident">unwrap</span>();
+            <span class="ident">ef</span>.<span class="ident">read_to_end</span>(<span class="kw-2">&amp;mut</span> <span class="ident">expected</span>).<span class="ident">unwrap</span>();
 
             <span class="macro">assert_eq!</span>(<span class="ident">actual</span>, <span class="ident">expected</span>);
         }
@@ -868,10 +869,10 @@
     <span class="kw">fn</span> <span class="ident">peek_next</span>() {
         <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">io::Cursor</span>, <span class="ident">rc::Rc</span>};
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rc</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rc</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>);
         <span class="kw">let</span> <span class="ident">records</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;barr&quot;</span>, <span class="string">&quot;baz&quot;</span>];
         {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">writer</span> <span class="op">=</span> <span class="ident">RecordWriter::new</span>(<span class="ident">Rc::get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">rc</span>).<span class="ident">unwrap</span>());
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">writer</span> <span class="op">=</span> <span class="ident">RecordWriter::new</span>(<span class="ident">Rc::get_mut</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rc</span>).<span class="ident">unwrap</span>());
             <span class="kw">for</span> <span class="ident">rec</span> <span class="kw">in</span> <span class="ident">records</span>.<span class="ident">iter</span>() {
                 <span class="ident">writer</span>.<span class="ident">write_record</span>(<span class="ident">rec</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
             }
@@ -887,17 +888,17 @@
                     <span class="ident">records</span>[<span class="ident">i</span>].<span class="ident">len</span>()
                 );
             }
-            <span class="kw">if</span> <span class="ident">i</span> <span class="op">=</span><span class="op">=</span> <span class="number">3</span> {
+            <span class="kw">if</span> <span class="ident">i</span> <span class="op">==</span> <span class="number">3</span> {
                 <span class="macro">assert!</span>(<span class="ident">reader</span>.<span class="ident">peek_next_len</span>().<span class="ident">unwrap</span>().<span class="ident">is_none</span>());
             }
 
-            <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ary</span>);
+            <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ary</span>);
             <span class="kw">match</span> <span class="ident">next</span> {
-                <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="ident">res</span> {
-                    <span class="prelude-val">Some</span>(<span class="ident">len</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="ident">ary</span>[<span class="number">0</span>..<span class="ident">len</span>], <span class="ident">records</span>[<span class="ident">i</span>].<span class="ident">as_bytes</span>()),
-                    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">break</span>,
+                <span class="prelude-val">Ok</span>(<span class="ident">res</span>) =&gt; <span class="kw">match</span> <span class="ident">res</span> {
+                    <span class="prelude-val">Some</span>(<span class="ident">len</span>) =&gt; <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="ident">ary</span>[<span class="number">0</span>..<span class="ident">len</span>], <span class="ident">records</span>[<span class="ident">i</span>].<span class="ident">as_bytes</span>()),
+                    <span class="prelude-val">None</span> =&gt; <span class="kw">break</span>,
                 },
-                <span class="prelude-val">Err</span>(<span class="ident">e</span> @ <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="prelude-val">Err</span>(<span class="ident">e</span> @ <span class="kw">_</span>) =&gt; {
                     <span class="macro">panic!</span>(<span class="string">&quot;Received an unexpected error: {:?}&quot;</span>, <span class="ident">e</span>);
                 }
             }
@@ -909,10 +910,10 @@
     <span class="kw">fn</span> <span class="ident">seek_over_too_long</span>() {
         <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">io::Cursor</span>, <span class="ident">rc::Rc</span>};
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rc</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rc</span> <span class="op">=</span> <span class="ident">Rc::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>);
         <span class="kw">let</span> <span class="ident">records</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;barr&quot;</span>, <span class="string">&quot;baz&quot;</span>];
         {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">writer</span> <span class="op">=</span> <span class="ident">RecordWriter::new</span>(<span class="ident">Rc::get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">rc</span>).<span class="ident">unwrap</span>());
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">writer</span> <span class="op">=</span> <span class="ident">RecordWriter::new</span>(<span class="ident">Rc::get_mut</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rc</span>).<span class="ident">unwrap</span>());
             <span class="kw">for</span> <span class="ident">rec</span> <span class="kw">in</span> <span class="ident">records</span>.<span class="ident">iter</span>() {
                 <span class="ident">writer</span>.<span class="ident">write_record</span>(<span class="ident">rec</span>.<span class="ident">as_bytes</span>()).<span class="ident">unwrap</span>();
             }
@@ -921,26 +922,25 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">RecordReader::new</span>(<span class="ident">read</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ary</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">3</span>];
 
-        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ary</span>);
+        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ary</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">next</span>.<span class="ident">unwrap</span>().<span class="ident">unwrap</span>(), <span class="number">3</span>);
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="ident">ary</span>, <span class="ident">records</span>[<span class="number">0</span>].<span class="ident">as_bytes</span>());
 
-        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ary</span>);
+        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ary</span>);
         <span class="kw">let</span> <span class="ident">buffer_too_short</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">next</span> {
-            <span class="prelude-val">Err</span>(<span class="ident">RecordReadError::BufferTooShort</span> { <span class="ident">needed</span>: <span class="ident">v</span> }) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="number">4</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">RecordReadError::BufferTooShort</span> { <span class="ident">needed</span>: <span class="ident">v</span> }) =&gt; <span class="ident">v</span> <span class="op">==</span> <span class="number">4</span>,
+            <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,
         };
         <span class="macro">assert!</span>(<span class="ident">buffer_too_short</span>);
 
-        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ary</span>);
+        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ary</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">next</span>.<span class="ident">unwrap</span>().<span class="ident">unwrap</span>(), <span class="number">3</span>);
         <span class="macro">assert_eq!</span>(<span class="kw-2">&amp;</span><span class="ident">ary</span>, <span class="ident">records</span>[<span class="number">2</span>].<span class="ident">as_bytes</span>());
 
-        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ary</span>);
+        <span class="kw">let</span> <span class="ident">next</span> <span class="op">=</span> <span class="ident">reader</span>.<span class="ident">read_next</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ary</span>);
         <span class="macro">assert!</span>(<span class="ident">next</span>.<span class="ident">unwrap</span>().<span class="ident">is_none</span>());
     }
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tensorflow" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

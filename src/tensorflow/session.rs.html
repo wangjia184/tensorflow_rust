@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;session.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>session.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;session.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>session.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -680,6 +681,8 @@
 <span id="680">680</span>
 <span id="681">681</span>
 <span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AnyTensor</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Buffer</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Code</span>;
@@ -721,9 +724,9 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span>, <span class="ident">Tag</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">Tags</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Tag</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">SessionOptions</span>,
         <span class="ident">tags</span>: <span class="ident">Tags</span>,
-        <span class="ident">graph</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Graph</span>,
+        <span class="ident">graph</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Graph</span>,
         <span class="ident">export_dir</span>: <span class="ident">P</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SavedModelBundle</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SavedModelBundle</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">Status::new</span>();
 
         <span class="kw">let</span> <span class="ident">export_dir_cstr</span> <span class="op">=</span> <span class="ident">export_dir</span>
@@ -738,7 +741,7 @@
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">::std::result::Result</span><span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="macro">invalid_arg!</span>(<span class="string">&quot;Invalid tag name&quot;</span>))<span class="question-mark">?</span>;
         <span class="comment">// keeping tags_cstr to retain strings in memory</span>
-        <span class="kw">let</span> <span class="ident">tags_ptr</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">tags_cstr</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">as_ptr</span>()).<span class="ident">collect</span>();
+        <span class="kw">let</span> <span class="ident">tags_ptr</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">*const</span> <span class="ident">c_char</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">tags_cstr</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">as_ptr</span>()).<span class="ident">collect</span>();
 
         <span class="comment">// The empty TF_Buffer will be filled by LoadSessionFromSavedModel</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">meta</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">Buffer</span>::<span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="ident">::from_ptr</span>(<span class="ident">ptr::null_mut</span>(), <span class="number">0</span>) };
@@ -759,6 +762,7 @@
             <span class="prelude-val">Err</span>(<span class="ident">status</span>)
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="ident">Session</span> { <span class="ident">inner</span> };
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
             <span class="prelude-val">Ok</span>(<span class="ident">SavedModelBundle</span> {
                 <span class="ident">session</span>,
                 <span class="ident">meta_graph_def</span>: <span class="ident">Vec::from</span>(<span class="ident">meta</span>.<span class="ident">as_ref</span>()),
@@ -768,7 +772,7 @@
     }
 
     <span class="doccomment">/// Returns the metagraph definition for the saved model.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">meta_graph_def</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">MetaGraphDef</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">meta_graph_def</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">MetaGraphDef</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta_graph</span>
     }
 }
@@ -776,14 +780,14 @@
 <span class="doccomment">/// Manages a single graph and execution.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Session</span> {
-    <span class="ident">inner</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">tf::TF_Session</span>,
+    <span class="ident">inner</span>: <span class="kw-2">*mut</span> <span class="ident">tf::TF_Session</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Session</span> {
     <span class="doccomment">/// Creates a session.</span>
     <span class="doccomment">/// `graph` will be be kept alive for the lifetime of the returned session.</span>
     <span class="doccomment">/// New nodes can still be added to `graph` after this call.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">SessionOptions</span>, <span class="ident">graph</span>: <span class="kw-2">&amp;</span><span class="ident">Graph</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">SessionOptions</span>, <span class="ident">graph</span>: <span class="kw-2">&amp;</span><span class="ident">Graph</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">Status::new</span>();
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">tf::TF_NewSession</span>(<span class="ident">graph</span>.<span class="ident">inner</span>(), <span class="ident">options</span>.<span class="ident">inner</span>, <span class="ident">status</span>.<span class="ident">inner</span>()) };
         <span class="kw">if</span> <span class="ident">inner</span>.<span class="ident">is_null</span>() {
@@ -798,14 +802,14 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_saved_model</span><span class="op">&lt;</span><span class="ident">P</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">Path</span><span class="op">&gt;</span>, <span class="ident">Tag</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="ident">Tags</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Tag</span><span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">options</span>: <span class="kw-2">&amp;</span><span class="ident">SessionOptions</span>,
         <span class="ident">tags</span>: <span class="ident">Tags</span>,
-        <span class="ident">graph</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Graph</span>,
+        <span class="ident">graph</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Graph</span>,
         <span class="ident">export_dir</span>: <span class="ident">P</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="ident">SavedModelBundle::load</span>(<span class="ident">options</span>, <span class="ident">tags</span>, <span class="ident">graph</span>, <span class="ident">export_dir</span>)<span class="question-mark">?</span>.<span class="ident">session</span>)
     }
 
     <span class="doccomment">/// Closes the session.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">Status::new</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">tf::TF_CloseSession</span>(<span class="self">self</span>.<span class="ident">inner</span>, <span class="ident">status</span>.<span class="ident">inner</span>());
@@ -817,7 +821,7 @@
     <span class="doccomment">/// requested in the step.  Note that the session has interior mutability;</span>
     <span class="doccomment">/// this may mutate variables in the graph, and the caller is responsible</span>
     <span class="doccomment">/// for handling race conditions.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">step</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">SessionRunArgs</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">step</span>: <span class="kw-2">&amp;mut</span> <span class="ident">SessionRunArgs</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="comment">// In case we&#39;re running it a second time and not all outputs were taken out.</span>
         <span class="ident">step</span>.<span class="ident">drop_output_tensors</span>();
         <span class="comment">// make sure run_metadata is either None or an empty TF_Buffer</span>
@@ -827,8 +831,8 @@
         <span class="kw">let</span> <span class="ident">maybe_tensors</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">input_tensors</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">inner</span>()).<span class="ident">collect</span>();
         <span class="kw">let</span> <span class="ident">input_tensors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">maybe_tensors</span><span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">run_options_ptr</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">step</span>.<span class="ident">run_options</span>.<span class="ident">as_ref</span>() {
-            <span class="prelude-val">Some</span>(<span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">inner</span>(),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ptr::null</span>(),
+            <span class="prelude-val">Some</span>(<span class="ident">buf</span>) =&gt; <span class="ident">buf</span>.<span class="ident">inner</span>(),
+            <span class="prelude-val">None</span> =&gt; <span class="ident">ptr::null</span>(),
         };
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">run_metadata_buf</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">step</span>.<span class="ident">request_metadata</span> {
@@ -837,15 +841,15 @@
             <span class="prelude-val">None</span>
         };
         <span class="kw">let</span> <span class="ident">run_metadata_ptr</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">run_metadata_buf</span>.<span class="ident">as_mut</span>() {
-            <span class="prelude-val">Some</span>(<span class="ident">meta</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">meta</span>.<span class="ident">inner_mut</span>(),
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ptr::null_mut</span>(),
+            <span class="prelude-val">Some</span>(<span class="ident">meta</span>) =&gt; <span class="ident">meta</span>.<span class="ident">inner_mut</span>(),
+            <span class="prelude-val">None</span> =&gt; <span class="ident">ptr::null_mut</span>(),
         };
         <span class="kw">unsafe</span> {
             <span class="ident">tf::TF_SessionRun</span>(
                 <span class="self">self</span>.<span class="ident">inner</span>,
                 <span class="ident">run_options_ptr</span>,
                 <span class="ident">step</span>.<span class="ident">input_ports</span>.<span class="ident">as_ptr</span>(),
-                <span class="ident">input_tensors</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">tf::TF_Tensor</span>,
+                <span class="ident">input_tensors</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw-2">*mut</span> <span class="ident">tf::TF_Tensor</span>,
                 <span class="ident">input_tensors</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">c_int</span>,
                 <span class="ident">step</span>.<span class="ident">output_ports</span>.<span class="ident">as_ptr</span>(),
                 <span class="ident">step</span>.<span class="ident">output_tensors</span>.<span class="ident">as_mut_ptr</span>(),
@@ -862,7 +866,7 @@
     }
 
     <span class="doccomment">/// Lists all devices in a session.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">Status::new</span>();
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">list</span> <span class="op">=</span> <span class="ident">tf::TF_SessionListDevices</span>(<span class="self">self</span>.<span class="ident">inner</span>, <span class="ident">status</span>.<span class="ident">inner</span>);
@@ -905,7 +909,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Session</span> {
-    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">Status::new</span>();
         <span class="kw">unsafe</span> {
             <span class="ident">tf::TF_DeleteSession</span>(<span class="self">self</span>.<span class="ident">inner</span>, <span class="ident">status</span>.<span class="ident">inner</span>());
@@ -954,9 +958,9 @@
     <span class="ident">input_tensors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="kw">dyn</span> <span class="ident">AnyTensor</span><span class="op">&gt;</span>,
 
     <span class="ident">output_ports</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">tf::TF_Output</span><span class="op">&gt;</span>,
-    <span class="ident">output_tensors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">tf::TF_Tensor</span><span class="op">&gt;</span>,
+    <span class="ident">output_tensors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">*mut</span> <span class="ident">tf::TF_Tensor</span><span class="op">&gt;</span>,
 
-    <span class="ident">target_operations</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">tf::TF_Operation</span><span class="op">&gt;</span>,
+    <span class="ident">target_operations</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">*const</span> <span class="ident">tf::TF_Operation</span><span class="op">&gt;</span>,
 
     <span class="ident">run_options</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Buffer</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">run_metadata</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -966,14 +970,14 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">SessionRunArgs</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span> <span class="ident">SessionRunArgs</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a SessionRunArgs.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">SessionRunArgs</span> {
             <span class="ident">input_ports</span>: <span class="macro">vec!</span>[],
             <span class="ident">input_tensors</span>: <span class="macro">vec!</span>[],
@@ -995,7 +999,7 @@
     <span class="doccomment">/// the operation to feed. For most operations, there is only one output,</span>
     <span class="doccomment">/// so the index should be 0.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_feed</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>,
         <span class="ident">index</span>: <span class="ident">c_int</span>,
         <span class="ident">tensor</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
@@ -1010,7 +1014,7 @@
     <span class="doccomment">/// Deprecated alias for add_feed.</span>
     <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use add_feed instead.&quot;</span>, <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.10.0&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_input</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>,
         <span class="ident">index</span>: <span class="ident">c_int</span>,
         <span class="ident">tensor</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
@@ -1023,7 +1027,7 @@
     <span class="doccomment">/// most operations, there is only one output, so the index should be 0.</span>
     <span class="doccomment">/// Returns a token that you can then use to fetch this output from the args</span>
     <span class="doccomment">/// after running it.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>, <span class="ident">index</span>: <span class="ident">c_int</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FetchToken</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">request_fetch</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>, <span class="ident">index</span>: <span class="ident">c_int</span>) -&gt; <span class="ident">FetchToken</span> {
         <span class="self">self</span>.<span class="ident">output_ports</span>.<span class="ident">push</span>(<span class="ident">tf::TF_Output</span> {
             <span class="ident">oper</span>: <span class="ident">operation</span>.<span class="ident">inner</span>(),
             <span class="ident">index</span>,
@@ -1037,7 +1041,7 @@
     <span class="doccomment">/// Deprecated alias for request_fetch.</span>
     <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use request_fetch instead.&quot;</span>, <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.10.0&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">request_output</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>, <span class="ident">index</span>: <span class="ident">c_int</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputToken</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">request_output</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>, <span class="ident">index</span>: <span class="ident">c_int</span>) -&gt; <span class="ident">OutputToken</span> {
         <span class="self">self</span>.<span class="ident">request_fetch</span>(<span class="ident">operation</span>, <span class="ident">index</span>)
     }
 
@@ -1045,7 +1049,7 @@
     <span class="doccomment">/// extracted once per `Session::run`. Returns an error if the token is</span>
     <span class="doccomment">/// invalid, output is unavailable or the requested type does not match the</span>
     <span class="doccomment">/// type of the actual tensor.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fetch</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="ident">FetchToken</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fetch</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="ident">FetchToken</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">output_idx</span> <span class="op">=</span> <span class="ident">token</span>.<span class="ident">index</span>;
         <span class="kw">if</span> <span class="ident">output_idx</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">output_tensors</span>.<span class="ident">len</span>() {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Status::new_set</span>(
@@ -1084,18 +1088,18 @@
     <span class="doccomment">/// Deprecated alias for fetch.</span>
     <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;Use fetch instead.&quot;</span>, <span class="ident">since</span> <span class="op">=</span> <span class="string">&quot;0.10.0&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_output</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="ident">OutputToken</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_output</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">token</span>: <span class="ident">OutputToken</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">fetch</span>(<span class="ident">token</span>)
     }
 
     <span class="doccomment">/// Adds a target operation to be executed when running the graph.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_target</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_target</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">operation</span>: <span class="kw-2">&amp;</span><span class="ident">Operation</span>) {
         <span class="self">self</span>.<span class="ident">target_operations</span>.<span class="ident">push</span>(<span class="ident">operation</span>.<span class="ident">inner</span>());
     }
 
     <span class="doccomment">/// Retuns the type of the tensor given an index.</span>
     <span class="doccomment">/// Returns `None` if the index is out of range or the output is not yet available.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">output_data_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">output_idx</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DataType</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">output_data_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">output_idx</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DataType</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">output_idx</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">output_tensors</span>.<span class="ident">len</span>() {
             <span class="kw">return</span> <span class="prelude-val">None</span>;
         }
@@ -1110,35 +1114,35 @@
     }
 
     <span class="doccomment">/// Sets the `RunOptions`. `run_options` is a serialized [`RunOptions` proto](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_run_options</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">run_options</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_run_options</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">run_options</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) {
         <span class="self">self</span>.<span class="ident">run_options</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">Buffer::from</span>(<span class="ident">run_options</span>))
     }
 
     <span class="doccomment">/// Returns the serialized [`RunOptions` proto](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto)</span>
     <span class="doccomment">/// Returns none if `RunOption` are not set.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_run_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_run_options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">run_options</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">std::convert::AsRef::as_ref</span>)
     }
 
     <span class="doccomment">/// Returns the serialized [`RunMetadata` proto](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto)</span>
     <span class="doccomment">/// Returns none if `self::set_request_metadata` is not set to true.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_metadata</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_metadata</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">run_metadata</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">std::convert::AsRef::as_ref</span>)
     }
 
     <span class="doccomment">/// Requests `run_metadata`. The serialized [`RunMetadata` proto](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto)</span>
     <span class="doccomment">/// can be retrieved via `self::get_metadata` after calling `Session::run`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_request_metadata</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">request</span>: <span class="ident">bool</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_request_metadata</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">request</span>: <span class="ident">bool</span>) {
         <span class="self">self</span>.<span class="ident">request_metadata</span> <span class="op">=</span> <span class="ident">request</span>;
     }
 
     <span class="doccomment">/// Returns whether `RunMetadata` should be stored.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_request_metadata</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_request_metadata</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">request_metadata</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">drop_output_tensors</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">for</span> <span class="ident">tensor</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">output_tensors</span> {
+    <span class="kw">fn</span> <span class="ident">drop_output_tensors</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
+        <span class="kw">for</span> <span class="ident">tensor</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">output_tensors</span> {
             <span class="comment">// TODO: Is TF_DeleteTensor NULL safe?</span>
             <span class="kw">if</span> <span class="op">!</span><span class="ident">tensor</span>.<span class="ident">is_null</span>() {
                 <span class="kw">unsafe</span> {
@@ -1149,13 +1153,13 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">maybe_reset_run_metadata</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">fn</span> <span class="ident">maybe_reset_run_metadata</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">run_metadata</span> <span class="op">=</span> <span class="prelude-val">None</span>;
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">SessionRunArgs</span><span class="op">&lt;</span><span class="lifetime">&#39;l</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">drop_output_tensors</span>();
     }
 }
@@ -1195,7 +1199,7 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="ident">serial_test::serial</span>;
 
-    <span class="kw">fn</span> <span class="ident">create_session</span>() <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">Session</span>, <span class="ident">Operation</span>, <span class="ident">Operation</span>) {
+    <span class="kw">fn</span> <span class="ident">create_session</span>() -&gt; (<span class="ident">Session</span>, <span class="ident">Operation</span>, <span class="ident">Operation</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">g</span> <span class="op">=</span> <span class="ident">Graph::new</span>();
         <span class="kw">let</span> <span class="ident">two</span> <span class="op">=</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nd</span> <span class="op">=</span> <span class="ident">g</span>.<span class="ident">new_operation</span>(<span class="string">&quot;Const&quot;</span>, <span class="string">&quot;two&quot;</span>).<span class="ident">unwrap</span>();
@@ -1219,8 +1223,8 @@
         };
         <span class="kw">let</span> <span class="ident">options</span> <span class="op">=</span> <span class="ident">SessionOptions::new</span>();
         <span class="kw">match</span> <span class="ident">Session::new</span>(<span class="kw-2">&amp;</span><span class="ident">options</span>, <span class="kw-2">&amp;</span><span class="ident">g</span>) {
-            <span class="prelude-val">Ok</span>(<span class="ident">session</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">session</span>, <span class="ident">x</span>, <span class="ident">y</span>),
-            <span class="prelude-val">Err</span>(<span class="ident">status</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;Creating session failed with status: {}&quot;</span>, <span class="ident">status</span>),
+            <span class="prelude-val">Ok</span>(<span class="ident">session</span>) =&gt; (<span class="ident">session</span>, <span class="ident">x</span>, <span class="ident">y</span>),
+            <span class="prelude-val">Err</span>(<span class="ident">status</span>) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Creating session failed with status: {}&quot;</span>, <span class="ident">status</span>),
         }
     }
 
@@ -1245,7 +1249,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">step</span> <span class="op">=</span> <span class="ident">SessionRunArgs::new</span>();
         <span class="ident">step</span>.<span class="ident">add_feed</span>(<span class="kw-2">&amp;</span><span class="ident">x_operation</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">x</span>);
         <span class="kw">let</span> <span class="ident">output_token</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">y_operation</span>, <span class="number">0</span>);
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">output_tensor</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">output_token</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>.<span class="ident">len</span>(), <span class="number">2</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>[<span class="number">0</span>], <span class="number">4.0</span>);
@@ -1264,7 +1268,7 @@
         <span class="ident">step</span>.<span class="ident">set_request_metadata</span>(<span class="bool-val">true</span>);
         <span class="ident">step</span>.<span class="ident">set_request_metadata</span>(<span class="bool-val">true</span>);
         <span class="kw">let</span> <span class="ident">output_token</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">y_operation</span>, <span class="number">0</span>);
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
         <span class="ident">step</span>.<span class="ident">get_metadata</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">output_tensor</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">output_token</span>).<span class="ident">unwrap</span>();
 
@@ -1273,7 +1277,7 @@
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>[<span class="number">1</span>], <span class="number">6.0</span>);
 
         <span class="comment">// ensure multiple calls with the same SessionRunArgs work</span>
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
         <span class="ident">step</span>.<span class="ident">get_metadata</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">output_tensor</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">output_token</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>.<span class="ident">len</span>(), <span class="number">2</span>);
@@ -1291,7 +1295,7 @@
         <span class="comment">// hard coded RunOptions proto with full tracelevel</span>
         <span class="ident">step</span>.<span class="ident">set_run_options</span>(<span class="kw-2">&amp;</span>[<span class="number">8u8</span>, <span class="number">3u8</span>]);
         <span class="kw">let</span> <span class="ident">output_token</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">y_operation</span>, <span class="number">0</span>);
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">output_tensor</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">output_token</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>.<span class="ident">len</span>(), <span class="number">2</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>[<span class="number">0</span>], <span class="number">4.0</span>);
@@ -1306,7 +1310,7 @@
         <span class="ident">step</span>.<span class="ident">add_feed</span>(<span class="kw-2">&amp;</span><span class="ident">x_operation</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">x</span>);
         <span class="ident">step</span>.<span class="ident">set_request_metadata</span>(<span class="bool-val">true</span>);
         <span class="kw">let</span> <span class="ident">output_token</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">y_operation</span>, <span class="number">0</span>);
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
         <span class="ident">step</span>.<span class="ident">get_metadata</span>().<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">output_tensor</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">output_token</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>.<span class="ident">len</span>(), <span class="number">2</span>);
@@ -1320,7 +1324,7 @@
         <span class="kw">let</span> <span class="ident">bundle</span> <span class="op">=</span> <span class="ident">SavedModelBundle::load</span>(
             <span class="kw-2">&amp;</span><span class="ident">SessionOptions::new</span>(),
             <span class="kw-2">&amp;</span>[<span class="string">&quot;train&quot;</span>, <span class="string">&quot;serve&quot;</span>],
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">graph</span>,
+            <span class="kw-2">&amp;mut</span> <span class="ident">graph</span>,
             <span class="string">&quot;test_resources/regression-model&quot;</span>,
         )
         .<span class="ident">unwrap</span>();
@@ -1330,6 +1334,7 @@
         <span class="kw">let</span> <span class="ident">y_hat_op</span> <span class="op">=</span> <span class="ident">graph</span>.<span class="ident">operation_by_name_required</span>(<span class="string">&quot;y_hat&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">_train_op</span> <span class="op">=</span> <span class="ident">graph</span>.<span class="ident">operation_by_name_required</span>(<span class="string">&quot;train&quot;</span>).<span class="ident">unwrap</span>();
 
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
         <span class="kw">let</span> <span class="ident">SavedModelBundle</span> {
             <span class="ident">session</span>,
             <span class="ident">meta_graph_def</span>,
@@ -1346,7 +1351,7 @@
         <span class="ident">step</span>.<span class="ident">add_feed</span>(<span class="kw-2">&amp;</span><span class="ident">x_op</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">x</span>);
         <span class="ident">step</span>.<span class="ident">add_feed</span>(<span class="kw-2">&amp;</span><span class="ident">y_op</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">y</span>);
         <span class="kw">let</span> <span class="ident">output_token</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">y_hat_op</span>, <span class="number">0</span>);
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">step</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">output_tensor</span> <span class="op">=</span> <span class="ident">step</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">output_token</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">output_tensor</span>.<span class="ident">len</span>(), <span class="number">1</span>);
     }
@@ -1356,7 +1361,7 @@
         <span class="kw">let</span> (<span class="ident">session</span>, <span class="kw">_</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">create_session</span>();
         <span class="kw">let</span> <span class="ident">devices</span> <span class="op">=</span> <span class="ident">session</span>.<span class="ident">device_list</span>().<span class="ident">unwrap</span>();
         <span class="macro">assert!</span>(
-            <span class="ident">devices</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">d</span><span class="op">|</span> <span class="ident">d</span>.<span class="ident">device_type</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;CPU&quot;</span>),
+            <span class="ident">devices</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">d</span><span class="op">|</span> <span class="ident">d</span>.<span class="ident">device_type</span> <span class="op">==</span> <span class="string">&quot;CPU&quot;</span>),
             <span class="string">&quot;devices: {:?}&quot;</span>,
             <span class="ident">devices</span>
         );
@@ -1364,5 +1369,4 @@
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tensorflow" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;train.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>train.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;train.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>train.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -508,7 +509,6 @@
 <span id="508">508</span>
 <span id="509">509</span>
 <span id="510">510</span>
-<span id="511">511</span>
 </pre><pre class="rust"><code><span class="doccomment">//! This module supports building and training models.</span>
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ops</span>;
@@ -529,7 +529,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">MinimizeOptions</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Sets the variables which will be optimized.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_variables</span>(<span class="self">self</span>, <span class="ident">variables</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Variable</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_variables</span>(<span class="self">self</span>, <span class="ident">variables</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Variable</span>]) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">variables</span> }
     }
 }
@@ -542,7 +542,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ComputeGradientsOptions</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Sets the variables whose gradients need to be computed.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_variables</span>(<span class="self">self</span>, <span class="ident">variables</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Variable</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_variables</span>(<span class="self">self</span>, <span class="ident">variables</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Variable</span>]) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">variables</span> }
     }
 }
@@ -555,7 +555,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ApplyGradientsOptions</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Sets the variables which will be optimized and their associated gradients.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_grads_and_vars</span>(<span class="self">self</span>, <span class="ident">grads_and_vars</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span>, <span class="ident">Variable</span>)]) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_grads_and_vars</span>(<span class="self">self</span>, <span class="ident">grads_and_vars</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span>, <span class="ident">Variable</span>)]) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">grads_and_vars</span> }
     }
 }
@@ -575,10 +575,10 @@
     <span class="doccomment">/// manually modify gradients.</span>
     <span class="kw">fn</span> <span class="ident">compute_gradients</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+        <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
         <span class="ident">loss</span>: <span class="ident">Output</span>,
         <span class="ident">opts</span>: <span class="ident">ComputeGradientsOptions</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span>, <span class="ident">Variable</span>)<span class="op">&gt;</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span>, <span class="ident">Variable</span>)<span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">variable_outputs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">opts</span>.<span class="ident">variables</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">v</span>.<span class="ident">output</span>.<span class="ident">clone</span>()).<span class="ident">collect</span>();
         <span class="kw">let</span> <span class="ident">gradients</span> <span class="op">=</span> <span class="ident">scope</span>
             .<span class="ident">graph_mut</span>()
@@ -600,9 +600,9 @@
     <span class="doccomment">/// manually modify gradients.</span>
     <span class="kw">fn</span> <span class="ident">apply_gradients</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+        <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
         <span class="ident">opts</span>: <span class="ident">ApplyGradientsOptions</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span>;
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span>;
 
     <span class="doccomment">/// Adds operations to the graph to minimize loss with respect to the</span>
     <span class="doccomment">/// variables.</span>
@@ -612,10 +612,10 @@
     <span class="doccomment">/// single step of minimization.        </span>
     <span class="kw">fn</span> <span class="ident">minimize</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+        <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
         <span class="ident">loss</span>: <span class="ident">Output</span>,
         <span class="ident">opts</span>: <span class="ident">MinimizeOptions</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">grads_and_vars</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">compute_gradients</span>(
             <span class="ident">scope</span>,
             <span class="ident">loss</span>,
@@ -640,7 +640,7 @@
 
 <span class="kw">impl</span> <span class="ident">GradientDescentOptimizer</span> {
     <span class="doccomment">/// Creates a new optimizer with the given learning rate.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">learning_rate</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">learning_rate</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">learning_rate</span>: <span class="ident">learning_rate</span>.<span class="ident">into</span>(),
         }
@@ -650,9 +650,9 @@
 <span class="kw">impl</span> <span class="ident">Optimizer</span> <span class="kw">for</span> <span class="ident">GradientDescentOptimizer</span> {
     <span class="kw">fn</span> <span class="ident">apply_gradients</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+        <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
         <span class="ident">opts</span>: <span class="ident">ApplyGradientsOptions</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">apply_ops</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
         <span class="kw">for</span> (<span class="ident">grad</span>, <span class="ident">var</span>) <span class="kw">in</span> <span class="ident">opts</span>.<span class="ident">grads_and_vars</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">grad</span>) <span class="op">=</span> <span class="ident">grad</span> {
@@ -683,14 +683,14 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">AdadeltaOptimizer</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">AdadeltaOptimizer</span> {
     <span class="doccomment">/// Creates a new optimizer with default parameters (learning_rate=0.001, rho=0.95, epsilon=1e-8).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">learning_rate</span>: <span class="prelude-val">None</span>,
             <span class="ident">rho</span>: <span class="prelude-val">None</span>,
@@ -699,38 +699,38 @@
     }
 
     <span class="doccomment">/// Sets the learning rate.  Default is 0.001.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_learning_rate</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">learning_rate</span>: <span class="ident">T</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_learning_rate</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">learning_rate</span>: <span class="ident">T</span>) {
         <span class="self">self</span>.<span class="ident">learning_rate</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">learning_rate</span>.<span class="ident">into</span>());
     }
 
     <span class="doccomment">/// Sets rho, the decay rate.  Default is 0.95.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_rho</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rho</span>: <span class="ident">T</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_rho</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">rho</span>: <span class="ident">T</span>) {
         <span class="self">self</span>.<span class="ident">rho</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">rho</span>.<span class="ident">into</span>());
     }
 
     <span class="doccomment">/// Sets epsilon, the conditioning.  Default is 1e-8.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_epsilon</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">epsilon</span>: <span class="ident">T</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_epsilon</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">epsilon</span>: <span class="ident">T</span>) {
         <span class="self">self</span>.<span class="ident">epsilon</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">epsilon</span>.<span class="ident">into</span>());
     }
 }
 
 <span class="kw">fn</span> <span class="ident">or_constant</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TensorType</span>, <span class="ident">TT</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Tensor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-    <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+    <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
     <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span>,
     <span class="ident">default</span>: <span class="ident">TT</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">value</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">x</span>.<span class="ident">clone</span>()),
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">ops::constant</span>(<span class="ident">default</span>, <span class="ident">scope</span>)<span class="question-mark">?</span>.<span class="ident">into</span>()),
+        <span class="prelude-val">Some</span>(<span class="ident">x</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">x</span>.<span class="ident">clone</span>()),
+        <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">ops::constant</span>(<span class="ident">default</span>, <span class="ident">scope</span>)<span class="question-mark">?</span>.<span class="ident">into</span>()),
     }
 }
 
 <span class="kw">fn</span> <span class="ident">create_zeros_slot</span>(
-    <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+    <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
     <span class="ident">primary</span>: <span class="kw-2">&amp;</span><span class="ident">Variable</span>,
     <span class="ident">dtype</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DataType</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">dtype</span> <span class="op">=</span> <span class="ident">dtype</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">primary</span>.<span class="ident">dtype</span>);
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">dtype</span> <span class="op">=</span> <span class="ident">dtype</span>.<span class="ident">unwrap_or</span>(<span class="ident">primary</span>.<span class="ident">dtype</span>);
     <span class="kw">let</span> <span class="ident">zeros</span> <span class="op">=</span> <span class="ident">ops::ZerosLike::new</span>()
         .<span class="ident">add_control_input</span>(<span class="ident">primary</span>.<span class="ident">initializer</span>.<span class="ident">clone</span>())
         .<span class="ident">build</span>(<span class="ident">primary</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">scope</span>)<span class="question-mark">?</span>;
@@ -744,9 +744,9 @@
 <span class="kw">impl</span> <span class="ident">Optimizer</span> <span class="kw">for</span> <span class="ident">AdadeltaOptimizer</span> {
     <span class="kw">fn</span> <span class="ident">apply_gradients</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Scope</span>,
+        <span class="ident">scope</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Scope</span>,
         <span class="ident">opts</span>: <span class="ident">ApplyGradientsOptions</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Variable</span><span class="op">&gt;</span>, <span class="ident">Operation</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">learning_rate</span> <span class="op">=</span> <span class="ident">or_constant</span>(<span class="ident">scope</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">learning_rate</span>, <span class="number">0.001f32</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">rho</span> <span class="op">=</span> <span class="ident">or_constant</span>(<span class="ident">scope</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rho</span>, <span class="number">0.95f32</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">epsilon</span> <span class="op">=</span> <span class="ident">or_constant</span>(<span class="ident">scope</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">epsilon</span>, <span class="number">1e-8f32</span>)<span class="question-mark">?</span>;
@@ -755,9 +755,9 @@
         <span class="kw">for</span> (<span class="ident">grad</span>, <span class="ident">var</span>) <span class="kw">in</span> <span class="ident">opts</span>.<span class="ident">grads_and_vars</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">grad</span>) <span class="op">=</span> <span class="ident">grad</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scope</span> <span class="op">=</span> <span class="ident">scope</span>.<span class="ident">new_sub_scope</span>(<span class="kw-2">&amp;</span><span class="ident">var</span>.<span class="ident">name</span>);
-                <span class="kw">let</span> <span class="ident">accum</span> <span class="op">=</span> <span class="ident">create_zeros_slot</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">new_sub_scope</span>(<span class="string">&quot;accum&quot;</span>), <span class="ident">var</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">accum</span> <span class="op">=</span> <span class="ident">create_zeros_slot</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">new_sub_scope</span>(<span class="string">&quot;accum&quot;</span>), <span class="ident">var</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">accum_update</span> <span class="op">=</span>
-                    <span class="ident">create_zeros_slot</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">new_sub_scope</span>(<span class="string">&quot;accum_update&quot;</span>), <span class="ident">var</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+                    <span class="ident">create_zeros_slot</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">new_sub_scope</span>(<span class="string">&quot;accum_update&quot;</span>), <span class="ident">var</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
                 <span class="ident">apply_ops</span>.<span class="ident">push</span>(<span class="ident">ops::apply_adadelta</span>(
                     <span class="ident">var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(),
                     <span class="ident">accum</span>.<span class="ident">output</span>.<span class="ident">clone</span>(),
@@ -766,7 +766,7 @@
                     <span class="ident">rho</span>.<span class="ident">clone</span>(),
                     <span class="ident">epsilon</span>.<span class="ident">clone</span>(),
                     <span class="ident">grad</span>.<span class="ident">clone</span>(),
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>,
+                    <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>,
                 )<span class="question-mark">?</span>);
                 <span class="ident">variables</span>.<span class="ident">push</span>(<span class="ident">accum</span>.<span class="ident">clone</span>());
                 <span class="ident">variables</span>.<span class="ident">push</span>(<span class="ident">accum_update</span>.<span class="ident">clone</span>());
@@ -788,7 +788,6 @@
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Session</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::SessionOptions</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::SessionRunArgs</span>;
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Shape</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Tensor</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -796,18 +795,18 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scope</span> <span class="op">=</span> <span class="ident">Scope::new_root_scope</span>();
         <span class="kw">let</span> <span class="ident">x_var</span> <span class="op">=</span> <span class="ident">Variable::builder</span>()
             .<span class="ident">const_initial_value</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">f32</span><span class="op">&gt;</span>(<span class="number">3.0</span>)
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;x&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;x&quot;</span>))
             .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">x_squared</span> <span class="op">=</span> <span class="ident">ops::mul</span>(<span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">x_squared</span> <span class="op">=</span> <span class="ident">ops::mul</span>(<span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">sgd</span> <span class="op">=</span> <span class="ident">GradientDescentOptimizer</span> {
             <span class="ident">learning_rate</span>: <span class="ident">Output</span> {
-                <span class="ident">operation</span>: <span class="ident">ops::constant</span>(<span class="number">0.1f32</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>(),
+                <span class="ident">operation</span>: <span class="ident">ops::constant</span>(<span class="number">0.1f32</span>, <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>(),
                 <span class="ident">index</span>: <span class="number">0</span>,
             },
         };
         <span class="kw">let</span> (<span class="ident">minimizer_vars</span>, <span class="ident">minimize</span>) <span class="op">=</span> <span class="ident">sgd</span>
             .<span class="ident">minimize</span>(
-                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>,
+                <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>,
                 <span class="ident">x_squared</span>.<span class="ident">into</span>(),
                 <span class="ident">MinimizeOptions::default</span>().<span class="ident">with_variables</span>(<span class="kw-2">&amp;</span>[<span class="ident">x_var</span>.<span class="ident">clone</span>()]),
             )
@@ -820,13 +819,13 @@
         <span class="kw">for</span> <span class="ident">var</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">minimizer_vars</span> {
             <span class="ident">run_args</span>.<span class="ident">add_target</span>(<span class="kw-2">&amp;</span><span class="ident">var</span>.<span class="ident">initializer</span>);
         }
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">run_args</span> <span class="op">=</span> <span class="ident">SessionRunArgs::new</span>();
         <span class="ident">run_args</span>.<span class="ident">add_target</span>(<span class="kw-2">&amp;</span><span class="ident">minimize</span>);
         <span class="kw">let</span> <span class="ident">x_fetch</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">operation</span>, <span class="number">0</span>);
 
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x_output</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">x_fetch</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">x_output</span>.<span class="ident">len</span>(), <span class="number">1</span>);
         <span class="macro">assert!</span>(
@@ -835,7 +834,7 @@
             <span class="ident">x_output</span>[<span class="number">0</span>]
         );
 
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x_output</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">x_fetch</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">x_output</span>.<span class="ident">len</span>(), <span class="number">1</span>);
         <span class="macro">assert!</span>(
@@ -844,7 +843,7 @@
             <span class="ident">x_output</span>[<span class="number">0</span>]
         );
 
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x_output</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">x_fetch</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">x_output</span>.<span class="ident">len</span>(), <span class="number">1</span>);
         <span class="macro">assert!</span>(
@@ -859,14 +858,14 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scope</span> <span class="op">=</span> <span class="ident">Scope::new_root_scope</span>();
         <span class="kw">let</span> <span class="ident">x_var</span> <span class="op">=</span> <span class="ident">Variable::builder</span>()
             .<span class="ident">const_initial_value</span>(<span class="number">3.0f32</span>)
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;x&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;x&quot;</span>))
             .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">x_squared</span> <span class="op">=</span> <span class="ident">ops::mul</span>(<span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">x_squared</span> <span class="op">=</span> <span class="ident">ops::mul</span>(<span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">optimizer</span> <span class="op">=</span> <span class="ident">AdadeltaOptimizer::new</span>();
-        <span class="ident">optimizer</span>.<span class="ident">set_learning_rate</span>(<span class="ident">ops::constant</span>(<span class="number">0.1f32</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>());
+        <span class="ident">optimizer</span>.<span class="ident">set_learning_rate</span>(<span class="ident">ops::constant</span>(<span class="number">0.1f32</span>, <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>).<span class="ident">unwrap</span>());
         <span class="kw">let</span> (<span class="ident">minimizer_vars</span>, <span class="ident">minimize</span>) <span class="op">=</span> <span class="ident">optimizer</span>
             .<span class="ident">minimize</span>(
-                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>,
+                <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>,
                 <span class="ident">x_squared</span>.<span class="ident">into</span>(),
                 <span class="ident">MinimizeOptions::default</span>().<span class="ident">with_variables</span>(<span class="kw-2">&amp;</span>[<span class="ident">x_var</span>.<span class="ident">clone</span>()]),
             )
@@ -879,13 +878,13 @@
         <span class="kw">for</span> <span class="ident">var</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">minimizer_vars</span> {
             <span class="ident">run_args</span>.<span class="ident">add_target</span>(<span class="kw-2">&amp;</span><span class="ident">var</span>.<span class="ident">initializer</span>);
         }
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">run_args</span> <span class="op">=</span> <span class="ident">SessionRunArgs::new</span>();
         <span class="ident">run_args</span>.<span class="ident">add_target</span>(<span class="kw-2">&amp;</span><span class="ident">minimize</span>);
         <span class="kw">let</span> <span class="ident">x_fetch</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">x_var</span>.<span class="ident">output</span>.<span class="ident">operation</span>, <span class="number">0</span>);
 
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x_output</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">x_fetch</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">x_output</span>.<span class="ident">len</span>(), <span class="number">1</span>);
         <span class="macro">assert!</span>(
@@ -894,7 +893,7 @@
             <span class="ident">x_output</span>[<span class="number">0</span>]
         );
 
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x_output</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">x_fetch</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">x_output</span>.<span class="ident">len</span>(), <span class="number">1</span>);
         <span class="macro">assert!</span>(
@@ -903,7 +902,7 @@
             <span class="ident">x_output</span>[<span class="number">0</span>]
         );
 
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x_output</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">x_fetch</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">x_output</span>.<span class="ident">len</span>(), <span class="number">1</span>);
         <span class="macro">assert!</span>(
@@ -916,17 +915,17 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">xor_nn</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">scope</span> <span class="op">=</span> <span class="ident">Scope::new_root_scope</span>();
-        <span class="kw">let</span> <span class="ident">scope</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>;
+        <span class="kw">let</span> <span class="ident">scope</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">scope</span>;
         <span class="kw">let</span> <span class="ident">hidden_size</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">4</span>;
         <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="ident">ops::Placeholder::new</span>()
             .<span class="ident">dtype</span>(<span class="ident">DataType::Float</span>)
             .<span class="ident">shape</span>([<span class="number">1u64</span>, <span class="number">2</span>])
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;input&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;input&quot;</span>))
             .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">ops::Placeholder::new</span>()
             .<span class="ident">dtype</span>(<span class="ident">DataType::Float</span>)
             .<span class="ident">shape</span>([<span class="number">1u64</span>])
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;label&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;label&quot;</span>))
             .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">w_shape</span> <span class="op">=</span> <span class="ident">ops::constant</span>(<span class="kw-2">&amp;</span>[<span class="number">2</span>, <span class="ident">hidden_size</span> <span class="kw">as</span> <span class="ident">i64</span>][..], <span class="ident">scope</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">w_init</span> <span class="op">=</span> <span class="ident">ops::RandomStandardNormal::new</span>()
@@ -937,11 +936,11 @@
             .<span class="ident">initial_value</span>(<span class="ident">w_init</span>)
             .<span class="ident">data_type</span>(<span class="ident">DataType::Float</span>)
             .<span class="ident">shape</span>([<span class="number">2</span>, <span class="ident">hidden_size</span>])
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;w&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;w&quot;</span>))
             .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">Variable::builder</span>()
             .<span class="ident">const_initial_value</span>(<span class="ident">Tensor</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span>[<span class="ident">hidden_size</span>]))
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;b&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;b&quot;</span>))
             .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">layer1a</span> <span class="op">=</span> <span class="ident">ops::MatMul::new</span>()
             .<span class="ident">build</span>(<span class="ident">input</span>.<span class="ident">clone</span>(), <span class="ident">w</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">scope</span>)
@@ -959,11 +958,11 @@
             .<span class="ident">initial_value</span>(<span class="ident">w2_init</span>)
             .<span class="ident">data_type</span>(<span class="ident">DataType::Float</span>)
             .<span class="ident">shape</span>([<span class="ident">hidden_size</span>, <span class="number">1</span>])
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;w2&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;w2&quot;</span>))
             .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">b2</span> <span class="op">=</span> <span class="ident">Variable::builder</span>()
             .<span class="ident">const_initial_value</span>(<span class="ident">Tensor</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>]))
-            .<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;b2&quot;</span>))
+            .<span class="ident">build</span>(<span class="kw-2">&amp;mut</span> <span class="ident">scope</span>.<span class="ident">with_op_name</span>(<span class="string">&quot;b2&quot;</span>))
             .<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">layer2a</span> <span class="op">=</span> <span class="ident">ops::mat_mul</span>(<span class="ident">layer1</span>, <span class="ident">w2</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">scope</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">layer2b</span> <span class="op">=</span> <span class="ident">ops::add</span>(<span class="ident">layer2a</span>, <span class="ident">b2</span>.<span class="ident">output</span>.<span class="ident">clone</span>(), <span class="ident">scope</span>).<span class="ident">unwrap</span>();
@@ -995,7 +994,7 @@
         <span class="kw">for</span> <span class="ident">var</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">minimizer_vars</span> {
             <span class="ident">run_args</span>.<span class="ident">add_target</span>(<span class="kw-2">&amp;</span><span class="ident">var</span>.<span class="ident">initializer</span>);
         }
-        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+        <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input_tensor</span> <span class="op">=</span> <span class="ident">Tensor</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>, <span class="number">2</span>]);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">label_tensor</span> <span class="op">=</span> <span class="ident">Tensor</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span>[<span class="number">1</span>]);
@@ -1008,7 +1007,7 @@
             <span class="kw">let</span> <span class="ident">error_squared_fetch</span> <span class="op">=</span> <span class="ident">run_args</span>.<span class="ident">request_fetch</span>(<span class="kw-2">&amp;</span><span class="ident">error_squared</span>, <span class="number">0</span>);
             <span class="ident">run_args</span>.<span class="ident">add_feed</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">input_tensor</span>);
             <span class="ident">run_args</span>.<span class="ident">add_feed</span>(<span class="kw-2">&amp;</span><span class="ident">label</span>, <span class="number">0</span>, <span class="kw-2">&amp;</span><span class="ident">label_tensor</span>);
-            <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
+            <span class="ident">session</span>.<span class="ident">run</span>(<span class="kw-2">&amp;mut</span> <span class="ident">run_args</span>).<span class="ident">unwrap</span>();
             <span class="ident">run_args</span>.<span class="ident">fetch</span>::<span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>(<span class="ident">error_squared_fetch</span>).<span class="ident">unwrap</span>()[<span class="number">0</span>]
         };
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">1000</span> {
@@ -1022,5 +1021,4 @@
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="tensorflow" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

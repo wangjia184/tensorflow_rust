@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;protos&#x2F;full_type.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>full_type.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;protos&#x2F;full_type.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>full_type.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../tensorflow/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -557,7 +558,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">::std::default::Default</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FullTypeDef</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FullTypeDef</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">FullTypeDef</span> {
         <span class="op">&lt;</span><span class="ident">FullTypeDef</span> <span class="kw">as</span> <span class="ident">::protobuf::Message</span><span class="op">&gt;</span><span class="ident">::default_instance</span>()
     }
 }
@@ -569,93 +570,93 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FullTypeDef</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FullTypeDef</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">FullTypeDef</span> {
         <span class="ident">::std::default::Default::default</span>()
     }
 
     <span class="comment">// .tensorflow.FullTypeId type_id = 1;</span>
 
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FullTypeId</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_type_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">FullTypeId</span> {
         <span class="self">self</span>.<span class="ident">type_id</span>
     }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_type_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_type_id</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">type_id</span> <span class="op">=</span> <span class="ident">FullTypeId::TFT_UNSET</span>;
     }
 
     <span class="comment">// Param is passed by value, moved</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_type_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">FullTypeId</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_type_id</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">FullTypeId</span>) {
         <span class="self">self</span>.<span class="ident">type_id</span> <span class="op">=</span> <span class="ident">v</span>;
     }
 
     <span class="comment">// repeated .tensorflow.FullTypeDef args = 2;</span>
 
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_args</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">FullTypeDef</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_args</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">FullTypeDef</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">args</span>
     }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_args</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_args</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">args</span>.<span class="ident">clear</span>();
     }
 
     <span class="comment">// Param is passed by value, moved</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_args</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">::protobuf::RepeatedField</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_args</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">::protobuf::RepeatedField</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span>) {
         <span class="self">self</span>.<span class="ident">args</span> <span class="op">=</span> <span class="ident">v</span>;
     }
 
     <span class="comment">// Mutable pointer to the field.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mut_args</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::protobuf::RepeatedField</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span> {
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">args</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mut_args</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">::protobuf::RepeatedField</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">args</span>
     }
 
     <span class="comment">// Take field</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_args</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::protobuf::RepeatedField</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span> {
-        <span class="ident">::std::mem::replace</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">args</span>, <span class="ident">::protobuf::RepeatedField::new</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_args</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">::protobuf::RepeatedField</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span> {
+        <span class="ident">::std::mem::replace</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">args</span>, <span class="ident">::protobuf::RepeatedField::new</span>())
     }
 
     <span class="comment">// string s = 3;</span>
 
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_s</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_s</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr</span> {
-            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;&quot;</span>,
+            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="ident">v</span>)) =&gt; <span class="ident">v</span>,
+            <span class="kw">_</span> =&gt; <span class="string">&quot;&quot;</span>,
         }
     }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_s</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_s</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::None</span>;
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_s</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_s</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr</span> {
-            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(..)) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(..)) =&gt; <span class="bool-val">true</span>,
+            <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,
         }
     }
 
     <span class="comment">// Param is passed by value, moved</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_s</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">::std::string::String</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_s</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">::std::string::String</span>) {
         <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="ident">v</span>))
     }
 
     <span class="comment">// Mutable pointer to the field.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mut_s</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::std::string::String</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mut_s</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">::std::string::String</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw">_</span>)) <span class="op">=</span> <span class="self">self</span>.<span class="ident">attr</span> {
         } <span class="kw">else</span> {
             <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="ident">::std::string::String::new</span>()));
         }
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr</span> {
-            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(),
+            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">v</span>)) =&gt; <span class="ident">v</span>,
+            <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(),
         }
     }
 
     <span class="comment">// Take field</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_s</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::string::String</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">take_s</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">::std::string::String</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">has_s</span>() {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr</span>.<span class="ident">take</span>() {
-                <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>,
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(),
+                <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="ident">v</span>)) =&gt; <span class="ident">v</span>,
+                <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(),
             }
         } <span class="kw">else</span> {
             <span class="ident">::std::string::String::new</span>()
@@ -665,31 +666,31 @@
     <span class="comment">// int64 i = 4;</span>
 
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_i</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_i</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">i64</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr</span> {
-            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">v</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">0</span>,
+            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>)) =&gt; <span class="ident">v</span>,
+            <span class="kw">_</span> =&gt; <span class="number">0</span>,
         }
     }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_i</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_i</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::None</span>;
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_i</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">has_i</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr</span> {
-            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::i</span>(..)) <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::i</span>(..)) =&gt; <span class="bool-val">true</span>,
+            <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,
         }
     }
 
     <span class="comment">// Param is passed by value, moved</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_i</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">i64</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_i</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">v</span>: <span class="ident">i64</span>) {
         <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>))
     }
 }
 
 <span class="kw">impl</span> <span class="ident">::protobuf::Message</span> <span class="kw">for</span> <span class="ident">FullTypeDef</span> {
-    <span class="kw">fn</span> <span class="ident">is_initialized</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">is_initialized</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="kw">for</span> <span class="ident">v</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">args</span> {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">v</span>.<span class="ident">is_initialized</span>() {
                 <span class="kw">return</span> <span class="bool-val">false</span>;
@@ -698,29 +699,29 @@
         <span class="bool-val">true</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">merge_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">is</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::protobuf::CodedInputStream</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::protobuf::ProtobufResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">merge_from</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">is</span>: <span class="kw-2">&amp;mut</span> <span class="ident">::protobuf::CodedInputStream</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">::protobuf::ProtobufResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">while</span> <span class="op">!</span><span class="ident">is</span>.<span class="ident">eof</span>()<span class="question-mark">?</span> {
             <span class="kw">let</span> (<span class="ident">field_number</span>, <span class="ident">wire_type</span>) <span class="op">=</span> <span class="ident">is</span>.<span class="ident">read_tag_unpack</span>()<span class="question-mark">?</span>;
             <span class="kw">match</span> <span class="ident">field_number</span> {
-                <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">::protobuf::rt::read_proto3_enum_with_unknown_fields_into</span>(<span class="ident">wire_type</span>, <span class="ident">is</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">type_id</span>, <span class="number">1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">unknown_fields</span>)<span class="question-mark">?</span>
+                <span class="number">1</span> =&gt; {
+                    <span class="ident">::protobuf::rt::read_proto3_enum_with_unknown_fields_into</span>(<span class="ident">wire_type</span>, <span class="ident">is</span>, <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">type_id</span>, <span class="number">1</span>, <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">unknown_fields</span>)<span class="question-mark">?</span>
                 },
-                <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="ident">::protobuf::rt::read_repeated_message_into</span>(<span class="ident">wire_type</span>, <span class="ident">is</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">args</span>)<span class="question-mark">?</span>;
+                <span class="number">2</span> =&gt; {
+                    <span class="ident">::protobuf::rt::read_repeated_message_into</span>(<span class="ident">wire_type</span>, <span class="ident">is</span>, <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">args</span>)<span class="question-mark">?</span>;
                 },
-                <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="number">3</span> =&gt; {
                     <span class="kw">if</span> <span class="ident">wire_type</span> <span class="op">!</span><span class="op">=</span> <span class="ident">::protobuf::wire_format::WireTypeLengthDelimited</span> {
                         <span class="kw">return</span> <span class="ident">::std::result::Result::Err</span>(<span class="ident">::protobuf::rt::unexpected_wire_type</span>(<span class="ident">wire_type</span>));
                     }
                     <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="ident">is</span>.<span class="ident">read_string</span>()<span class="question-mark">?</span>));
                 },
-                <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="number">4</span> =&gt; {
                     <span class="kw">if</span> <span class="ident">wire_type</span> <span class="op">!</span><span class="op">=</span> <span class="ident">::protobuf::wire_format::WireTypeVarint</span> {
                         <span class="kw">return</span> <span class="ident">::std::result::Result::Err</span>(<span class="ident">::protobuf::rt::unexpected_wire_type</span>(<span class="ident">wire_type</span>));
                     }
                     <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">is</span>.<span class="ident">read_int64</span>()<span class="question-mark">?</span>));
                 },
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">_</span> =&gt; {
                     <span class="ident">::protobuf::rt::read_unknown_or_skip_group</span>(<span class="ident">field_number</span>, <span class="ident">wire_type</span>, <span class="ident">is</span>, <span class="self">self</span>.<span class="ident">mut_unknown_fields</span>())<span class="question-mark">?</span>;
                 },
             };
@@ -730,7 +731,7 @@
 
     <span class="comment">// Compute sizes of nested messages</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_variables</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">compute_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">fn</span> <span class="ident">compute_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">my_size</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">type_id</span> <span class="op">!</span><span class="op">=</span> <span class="ident">FullTypeId::TFT_UNSET</span> {
             <span class="ident">my_size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">::protobuf::rt::enum_size</span>(<span class="number">1</span>, <span class="self">self</span>.<span class="ident">type_id</span>);
@@ -741,10 +742,10 @@
         };
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">::std::option::Option::Some</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">attr</span> {
             <span class="kw">match</span> <span class="ident">v</span> {
-                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) =&gt; {
                     <span class="ident">my_size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">::protobuf::rt::string_size</span>(<span class="number">3</span>, <span class="kw-2">&amp;</span><span class="ident">v</span>);
                 },
-                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>) =&gt; {
                     <span class="ident">my_size</span> <span class="op">+</span><span class="op">=</span> <span class="ident">::protobuf::rt::value_size</span>(<span class="number">4</span>, <span class="ident">v</span>, <span class="ident">::protobuf::wire_format::WireTypeVarint</span>);
                 },
             };
@@ -754,7 +755,7 @@
         <span class="ident">my_size</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">write_to_with_cached_sizes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">os</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::protobuf::CodedOutputStream</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::protobuf::ProtobufResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write_to_with_cached_sizes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">os</span>: <span class="kw-2">&amp;mut</span> <span class="ident">::protobuf::CodedOutputStream</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">::protobuf::ProtobufResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">type_id</span> <span class="op">!</span><span class="op">=</span> <span class="ident">FullTypeId::TFT_UNSET</span> {
             <span class="ident">os</span>.<span class="ident">write_enum</span>(<span class="number">1</span>, <span class="ident">::protobuf::ProtobufEnum::value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">type_id</span>))<span class="question-mark">?</span>;
         }
@@ -765,10 +766,10 @@
         };
         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">::std::option::Option::Some</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">attr</span> {
             <span class="kw">match</span> <span class="ident">v</span> {
-                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::s</span>(<span class="kw-2">ref</span> <span class="ident">v</span>) =&gt; {
                     <span class="ident">os</span>.<span class="ident">write_string</span>(<span class="number">3</span>, <span class="ident">v</span>)<span class="question-mark">?</span>;
                 },
-                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw-2">&amp;</span><span class="ident">FullTypeDef_oneof_attr::i</span>(<span class="ident">v</span>) =&gt; {
                     <span class="ident">os</span>.<span class="ident">write_int64</span>(<span class="number">4</span>, <span class="ident">v</span>)<span class="question-mark">?</span>;
                 },
             };
@@ -777,49 +778,49 @@
         <span class="ident">::std::result::Result::Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">get_cached_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u32</span> {
+    <span class="kw">fn</span> <span class="ident">get_cached_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">u32</span> {
         <span class="self">self</span>.<span class="ident">cached_size</span>.<span class="ident">get</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">get_unknown_fields</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">::protobuf::UnknownFields</span> {
+    <span class="kw">fn</span> <span class="ident">get_unknown_fields</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">::protobuf::UnknownFields</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">unknown_fields</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">mut_unknown_fields</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::protobuf::UnknownFields</span> {
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">unknown_fields</span>
+    <span class="kw">fn</span> <span class="ident">mut_unknown_fields</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">::protobuf::UnknownFields</span> {
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">unknown_fields</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">as_any</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>) {
+    <span class="kw">fn</span> <span class="ident">as_any</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>) {
         <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>)
     }
-    <span class="kw">fn</span> <span class="ident">as_any_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>) {
-        <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>)
+    <span class="kw">fn</span> <span class="ident">as_any_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>) {
+        <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">&amp;mut</span> <span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>)
     }
-    <span class="kw">fn</span> <span class="ident">into_any</span>(<span class="self">self</span>: <span class="ident">::std::boxed::Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::boxed::Box</span><span class="op">&lt;</span><span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">into_any</span>(<span class="self">self</span>: <span class="ident">::std::boxed::Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">::std::boxed::Box</span><span class="op">&lt;</span><span class="kw">dyn</span> (<span class="ident">::std::any::Any</span>)<span class="op">&gt;</span> {
         <span class="self">self</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">descriptor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::reflect::MessageDescriptor</span> {
+    <span class="kw">fn</span> <span class="ident">descriptor</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::reflect::MessageDescriptor</span> {
         <span class="ident"><span class="self">Self</span>::descriptor_static</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FullTypeDef</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">FullTypeDef</span> {
         <span class="ident">FullTypeDef::new</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">descriptor_static</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::reflect::MessageDescriptor</span> {
+    <span class="kw">fn</span> <span class="ident">descriptor_static</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::reflect::MessageDescriptor</span> {
         <span class="kw">static</span> <span class="ident">descriptor</span>: <span class="ident">::protobuf::rt::LazyV2</span><span class="op">&lt;</span><span class="ident">::protobuf::reflect::MessageDescriptor</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">::protobuf::rt::LazyV2::INIT</span>;
         <span class="ident">descriptor</span>.<span class="ident">get</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fields</span> <span class="op">=</span> <span class="ident">::std::vec::Vec::new</span>();
             <span class="ident">fields</span>.<span class="ident">push</span>(<span class="ident">::protobuf::reflect::accessor::make_simple_field_accessor</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">::protobuf::types::ProtobufTypeEnum</span><span class="op">&lt;</span><span class="ident">FullTypeId</span><span class="op">&gt;</span><span class="op">&gt;</span>(
                 <span class="string">&quot;type_id&quot;</span>,
                 <span class="op">|</span><span class="ident">m</span>: <span class="kw-2">&amp;</span><span class="ident">FullTypeDef</span><span class="op">|</span> { <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">type_id</span> },
-                <span class="op">|</span><span class="ident">m</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FullTypeDef</span><span class="op">|</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>.<span class="ident">type_id</span> },
+                <span class="op">|</span><span class="ident">m</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FullTypeDef</span><span class="op">|</span> { <span class="kw-2">&amp;mut</span> <span class="ident">m</span>.<span class="ident">type_id</span> },
             ));
             <span class="ident">fields</span>.<span class="ident">push</span>(<span class="ident">::protobuf::reflect::accessor::make_repeated_field_accessor</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">::protobuf::types::ProtobufTypeMessage</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span><span class="op">&gt;</span>(
                 <span class="string">&quot;args&quot;</span>,
                 <span class="op">|</span><span class="ident">m</span>: <span class="kw-2">&amp;</span><span class="ident">FullTypeDef</span><span class="op">|</span> { <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">args</span> },
-                <span class="op">|</span><span class="ident">m</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">FullTypeDef</span><span class="op">|</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">m</span>.<span class="ident">args</span> },
+                <span class="op">|</span><span class="ident">m</span>: <span class="kw-2">&amp;mut</span> <span class="ident">FullTypeDef</span><span class="op">|</span> { <span class="kw-2">&amp;mut</span> <span class="ident">m</span>.<span class="ident">args</span> },
             ));
             <span class="ident">fields</span>.<span class="ident">push</span>(<span class="ident">::protobuf::reflect::accessor::make_singular_string_accessor</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>(
                 <span class="string">&quot;s&quot;</span>,
@@ -839,14 +840,14 @@
         })
     }
 
-    <span class="kw">fn</span> <span class="ident">default_instance</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">FullTypeDef</span> {
+    <span class="kw">fn</span> <span class="ident">default_instance</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">FullTypeDef</span> {
         <span class="kw">static</span> <span class="ident">instance</span>: <span class="ident">::protobuf::rt::LazyV2</span><span class="op">&lt;</span><span class="ident">FullTypeDef</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">::protobuf::rt::LazyV2::INIT</span>;
         <span class="ident">instance</span>.<span class="ident">get</span>(<span class="ident">FullTypeDef::new</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">::protobuf::Clear</span> <span class="kw">for</span> <span class="ident">FullTypeDef</span> {
-    <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+    <span class="kw">fn</span> <span class="ident">clear</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) {
         <span class="self">self</span>.<span class="ident">type_id</span> <span class="op">=</span> <span class="ident">FullTypeId::TFT_UNSET</span>;
         <span class="self">self</span>.<span class="ident">args</span>.<span class="ident">clear</span>();
         <span class="self">self</span>.<span class="ident">attr</span> <span class="op">=</span> <span class="ident">::std::option::Option::None</span>;
@@ -856,13 +857,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">::std::fmt::Debug</span> <span class="kw">for</span> <span class="ident">FullTypeDef</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">::std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">::std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">::std::fmt::Result</span> {
         <span class="ident">::protobuf::text_format::fmt</span>(<span class="self">self</span>, <span class="ident">f</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">::protobuf::reflect::ProtobufValue</span> <span class="kw">for</span> <span class="ident">FullTypeDef</span> {
-    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::protobuf::reflect::ReflectValueRef</span> {
+    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">::protobuf::reflect::ReflectValueRef</span> {
         <span class="ident">::protobuf::reflect::ReflectValueRef::Message</span>(<span class="self">self</span>)
     }
 }
@@ -903,48 +904,48 @@
 }
 
 <span class="kw">impl</span> <span class="ident">::protobuf::ProtobufEnum</span> <span class="kw">for</span> <span class="ident">FullTypeId</span> {
-    <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">i32</span> {
         <span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">i32</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">from_i32</span>(<span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::std::option::Option</span><span class="op">&lt;</span><span class="ident">FullTypeId</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from_i32</span>(<span class="ident">value</span>: <span class="ident">i32</span>) -&gt; <span class="ident">::std::option::Option</span><span class="op">&lt;</span><span class="ident">FullTypeId</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">value</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UNSET</span>),
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_VAR</span>),
-            <span class="number">2</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_ANY</span>),
-            <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_PRODUCT</span>),
-            <span class="number">4</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_NAMED</span>),
-            <span class="number">20</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_FOR_EACH</span>),
-            <span class="number">100</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_CALLABLE</span>),
-            <span class="number">1000</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_TENSOR</span>),
-            <span class="number">1001</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_ARRAY</span>),
-            <span class="number">1002</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_OPTIONAL</span>),
-            <span class="number">1003</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_LITERAL</span>),
-            <span class="number">200</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_BOOL</span>),
-            <span class="number">201</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT8</span>),
-            <span class="number">202</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT16</span>),
-            <span class="number">203</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT32</span>),
-            <span class="number">204</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT64</span>),
-            <span class="number">205</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT8</span>),
-            <span class="number">206</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT16</span>),
-            <span class="number">207</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT32</span>),
-            <span class="number">208</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT64</span>),
-            <span class="number">209</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_HALF</span>),
-            <span class="number">210</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_FLOAT</span>),
-            <span class="number">211</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_DOUBLE</span>),
-            <span class="number">215</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_BFLOAT16</span>),
-            <span class="number">212</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_COMPLEX64</span>),
-            <span class="number">213</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_COMPLEX128</span>),
-            <span class="number">214</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_STRING</span>),
-            <span class="number">10102</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_DATASET</span>),
-            <span class="number">10103</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_RAGGED</span>),
-            <span class="number">10202</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_MUTEX_LOCK</span>),
-            <span class="number">10203</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_LEGACY_VARIANT</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">::std::option::Option::None</span>
+            <span class="number">0</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UNSET</span>),
+            <span class="number">1</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_VAR</span>),
+            <span class="number">2</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_ANY</span>),
+            <span class="number">3</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_PRODUCT</span>),
+            <span class="number">4</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_NAMED</span>),
+            <span class="number">20</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_FOR_EACH</span>),
+            <span class="number">100</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_CALLABLE</span>),
+            <span class="number">1000</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_TENSOR</span>),
+            <span class="number">1001</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_ARRAY</span>),
+            <span class="number">1002</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_OPTIONAL</span>),
+            <span class="number">1003</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_LITERAL</span>),
+            <span class="number">200</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_BOOL</span>),
+            <span class="number">201</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT8</span>),
+            <span class="number">202</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT16</span>),
+            <span class="number">203</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT32</span>),
+            <span class="number">204</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_UINT64</span>),
+            <span class="number">205</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT8</span>),
+            <span class="number">206</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT16</span>),
+            <span class="number">207</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT32</span>),
+            <span class="number">208</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_INT64</span>),
+            <span class="number">209</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_HALF</span>),
+            <span class="number">210</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_FLOAT</span>),
+            <span class="number">211</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_DOUBLE</span>),
+            <span class="number">215</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_BFLOAT16</span>),
+            <span class="number">212</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_COMPLEX64</span>),
+            <span class="number">213</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_COMPLEX128</span>),
+            <span class="number">214</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_STRING</span>),
+            <span class="number">10102</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_DATASET</span>),
+            <span class="number">10103</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_RAGGED</span>),
+            <span class="number">10202</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_MUTEX_LOCK</span>),
+            <span class="number">10203</span> =&gt; <span class="ident">::std::option::Option::Some</span>(<span class="ident">FullTypeId::TFT_LEGACY_VARIANT</span>),
+            <span class="kw">_</span> =&gt; <span class="ident">::std::option::Option::None</span>
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">values</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="self">Self</span>] {
+    <span class="kw">fn</span> <span class="ident">values</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="self">Self</span>] {
         <span class="kw">static</span> <span class="ident">values</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">FullTypeId</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[
             <span class="ident">FullTypeId::TFT_UNSET</span>,
             <span class="ident">FullTypeId::TFT_VAR</span>,
@@ -981,7 +982,7 @@
         <span class="ident">values</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">enum_descriptor_static</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::reflect::EnumDescriptor</span> {
+    <span class="kw">fn</span> <span class="ident">enum_descriptor_static</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::reflect::EnumDescriptor</span> {
         <span class="kw">static</span> <span class="ident">descriptor</span>: <span class="ident">::protobuf::rt::LazyV2</span><span class="op">&lt;</span><span class="ident">::protobuf::reflect::EnumDescriptor</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">::protobuf::rt::LazyV2::INIT</span>;
         <span class="ident">descriptor</span>.<span class="ident">get</span>(<span class="op">|</span><span class="op">|</span> {
             <span class="ident">::protobuf::reflect::EnumDescriptor::new_pb_name</span>::<span class="op">&lt;</span><span class="ident">FullTypeId</span><span class="op">&gt;</span>(<span class="string">&quot;FullTypeId&quot;</span>, <span class="ident">file_descriptor_proto</span>())
@@ -993,13 +994,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">::std::default::Default</span> <span class="kw">for</span> <span class="ident">FullTypeId</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">FullTypeId::TFT_UNSET</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">::protobuf::reflect::ProtobufValue</span> <span class="kw">for</span> <span class="ident">FullTypeId</span> {
-    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::protobuf::reflect::ReflectValueRef</span> {
+    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">::protobuf::reflect::ReflectValueRef</span> {
         <span class="ident">::protobuf::reflect::ReflectValueRef::Enum</span>(<span class="ident">::protobuf::ProtobufEnum::descriptor</span>(<span class="self">self</span>))
     }
 }
@@ -1031,16 +1032,15 @@
 
 <span class="kw">static</span> <span class="ident">file_descriptor_proto_lazy</span>: <span class="ident">::protobuf::rt::LazyV2</span><span class="op">&lt;</span><span class="ident">::protobuf::descriptor::FileDescriptorProto</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">::protobuf::rt::LazyV2::INIT</span>;
 
-<span class="kw">fn</span> <span class="ident">parse_descriptor_proto</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">::protobuf::descriptor::FileDescriptorProto</span> {
+<span class="kw">fn</span> <span class="ident">parse_descriptor_proto</span>() -&gt; <span class="ident">::protobuf::descriptor::FileDescriptorProto</span> {
     <span class="ident">::protobuf::Message::parse_from_bytes</span>(<span class="ident">file_descriptor_proto_data</span>).<span class="ident">unwrap</span>()
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">file_descriptor_proto</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::descriptor::FileDescriptorProto</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">file_descriptor_proto</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">::protobuf::descriptor::FileDescriptorProto</span> {
     <span class="ident">file_descriptor_proto_lazy</span>.<span class="ident">get</span>(<span class="op">|</span><span class="op">|</span> {
         <span class="ident">parse_descriptor_proto</span>()
     })
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="tensorflow" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
-    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>
 </body></html>
